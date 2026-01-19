@@ -8,6 +8,8 @@ public class It355Pz01Application {
 
     public static void main(String[] args) {
         SpringApplication.run(It355Pz01Application.class, args);
+        System.out.println("aaaa");
     }
+
 
 }
