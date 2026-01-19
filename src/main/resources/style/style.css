@@ -1,0 +1,106 @@
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+
+.card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+
+.badge-online {
+    background: linear-gradient(135deg, #00b09b, #96c93d);
+}
+
+.badge-offline {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+}
+
+
+.availability-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.dot-available {
+    background-color: #28a745;
+    box-shadow: 0 0 10px #28a745;
+}
+
+.dot-unavailable {
+    background-color: #dc3545;
+    box-shadow: 0 0 10px #dc3545;
+}
+
+
+.price-tag {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+
+.spinner {
+    border: 4px solid rgba(0,0,0,0.1);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.datepicker-custom {
+    border: 2px solid #667eea;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .invoice-print {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .card-body {
+        padding: 15px;
+    }
+
+    .btn-group {
+        flex-wrap: wrap;
+    }
+
+    .btn-group .btn {
+        margin-bottom: 5px;
+    }
+}
