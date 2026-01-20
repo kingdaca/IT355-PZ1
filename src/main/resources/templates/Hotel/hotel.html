@@ -71,13 +71,13 @@
         <div th:each="hotel : ${hotels}" class="col-md-4">
             <div class="card hotel-card h-100">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${hotel.naziv}"></h5>
+                    <h5 class="card-title" th:text="${hotel.name}"></h5>
 
                     <div class="stars mb-2"
-                         th:text="${#strings.repeat('⭐', hotel.brojZvezdica)}"></div>
+                         th:text="${#strings.repeat('⭐', hotel.starRating)}"></div>
 
-                    <p class="mb-1"><strong>📍</strong> <span th:text="${hotel.adresa}"></span></p>
-                    <p class="mb-1"><strong>📞</strong> <span th:text="${hotel.telefon}"></span></p>
+                    <p class="mb-1"><strong>📍</strong> <span th:text="${hotel.address}"></span></p>
+                    <p class="mb-1"><strong>📞</strong> <span th:text="${hotel.phone}"></span></p>
                     <p class="mb-1"><strong>📧</strong> <span th:text="${hotel.email}"></span></p>
 <!--                    <p class="mb-0"><strong>🏨 Sobe:</strong>-->
 <!--                        <span th:text="${hotel.sobe.size()}"></span>-->
@@ -86,12 +86,12 @@
 
                 <div class="card-footer bg-transparent border-0">
                     <div class="btn-group w-100">
-                        <a th:href="@{'/hoteli/edit/' + ${hotel.id}}"
+                        <a th:href="@{'/hotel/editHotel?hotelId=' + ${hotel.id}}"
                            class="btn btn-outline-primary btn-sm">✏️</a>
                         <a th:href="@{'/hoteli/delete/' + ${hotel.id}}"
                            class="btn btn-outline-danger btn-sm"
                            onclick="return confirm('Obrisati hotel?')">🗑️</a>
-                        <a th:href="@{'/sobe?hotelId=' + ${hotel.id}}"
+                        <a th:href="@{'hotel/rooms?hotelId=' + ${hotel.id}}"
                            class="btn btn-outline-info btn-sm">🏨</a>
                     </div>
                 </div>

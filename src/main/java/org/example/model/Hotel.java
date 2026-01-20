@@ -6,30 +6,39 @@ import java.util.List;
 public class Hotel {
 
     private Long id;
-    private String naziv;
-    private String adresa;
-    private String grad;
-    private String telefon;
+    private String name;
+    private String address;
+    private String city;
+    private String phone;
     private String email;
     private String website;
-    private int brojZvezdica;
-    private String opis;
-    private List<Soba> sobe = new ArrayList<>();
+    private int starRating;
+    private String description;
+    private List<Room> rooms = new ArrayList<>();
 
     public Hotel() {
     }
 
-    public Hotel(Long id, String naziv, String adresa, String grad, String telefon, String email, String website, int brojZvezdica, String opis, List<Soba> sobe) {
+    public Hotel(Long id,
+                 String name,
+                 String address,
+                 String city,
+                 String phone,
+                 String email,
+                 String website,
+                 int starRating,
+                 String description,
+                 List<Room> rooms) {
         this.id = id;
-        this.naziv = naziv;
-        this.adresa = adresa;
-        this.grad = grad;
-        this.telefon = telefon;
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.phone = phone;
         this.email = email;
         this.website = website;
-        this.brojZvezdica = brojZvezdica;
-        this.opis = opis;
-        this.sobe = sobe;
+        this.starRating = starRating;
+        this.description = description;
+        this.rooms = rooms;
     }
 
     public Long getId() {
@@ -40,36 +49,36 @@ public class Hotel {
         this.id = id;
     }
 
-    public String getNaziv() {
-        return naziv;
+    public String getName() {
+        return name;
     }
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAdresa() {
-        return adresa;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdresa(String adresa) {
-        this.adresa = adresa;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getGrad() {
-        return grad;
+    public String getCity() {
+        return city;
     }
 
-    public void setGrad(String grad) {
-        this.grad = grad;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getTelefon() {
-        return telefon;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelefon(String telefon) {
-        this.telefon = telefon;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -88,43 +97,43 @@ public class Hotel {
         this.website = website;
     }
 
-    public int getBrojZvezdica() {
-        return brojZvezdica;
+    public int getStarRating() {
+        return starRating;
     }
 
-    public void setBrojZvezdica(int brojZvezdica) {
-        this.brojZvezdica = brojZvezdica;
+    public void setStarRating(int starRating) {
+        this.starRating = starRating;
     }
 
-    public String getOpis() {
-        return opis;
+    public String getDescription() {
+        return description;
     }
 
-    public void setOpis(String opis) {
-        this.opis = opis;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<Soba> getSobe() {
-        return sobe;
+    public List<Room> getRooms() {
+        return rooms;
     }
 
-    public void setSobe(List<Soba> sobe) {
-        this.sobe = sobe;
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 
     @Override
     public String toString() {
         return "Hotel{" +
                 "id=" + id +
-                ", naziv='" + naziv + '\'' +
-                ", adresa='" + adresa + '\'' +
-                ", grad='" + grad + '\'' +
-                ", telefon='" + telefon + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", website='" + website + '\'' +
-                ", brojZvezdica=" + brojZvezdica +
-                ", opis='" + opis + '\'' +
-                ", sobe=" + sobe +
+                ", starRating=" + starRating +
+                ", description='" + description + '\'' +
+                ", rooms=" + rooms +
                 '}';
     }
 }

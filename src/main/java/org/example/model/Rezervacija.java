@@ -9,7 +9,7 @@ public class Rezervacija {
     private Long id;
     private String brojRezervacije;
     private Gost gost;
-    private Soba soba;
+    private Room soba;
     private LocalDate datumPrijave;
     private LocalDate datumOdjave;
     private LocalDate datumRezervacije;
@@ -21,7 +21,7 @@ public class Rezervacija {
     public Rezervacija() {
     }
 
-    public Rezervacija(Long id, String brojRezervacije, Gost gost, Soba soba, LocalDate datumPrijave, LocalDate datumOdjave, LocalDate datumRezervacije, double ukupnaCena, StatusRezervacije status, String napomena, List<Usluga> dodatneUsluge) {
+    public Rezervacija(Long id, String brojRezervacije, Gost gost, Room soba, LocalDate datumPrijave, LocalDate datumOdjave, LocalDate datumRezervacije, double ukupnaCena, StatusRezervacije status, String napomena, List<Usluga> dodatneUsluge) {
         this.id = id;
         this.brojRezervacije = brojRezervacije;
         this.gost = gost;
@@ -59,11 +59,11 @@ public class Rezervacija {
         this.gost = gost;
     }
 
-    public Soba getSoba() {
+    public Room getSoba() {
         return soba;
     }
 
-    public void setSoba(Soba soba) {
+    public void setSoba(Room soba) {
         this.soba = soba;
     }
 
