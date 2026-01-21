@@ -83,9 +83,15 @@
     <!-- HEADER -->
     <div class="page-header">
         <h2>🏨 Sobe</h2>
-        <a th:href="@{/hotel}" class="btn btn-outline-primary rounded-pill">
-            ← Nazad na hotele
-        </a>
+        <div>
+            <a th:href="@{'/room/addOrEditRoom?hotelId='+ ${hotelId}}"
+               class="btn btn-primary rounded-pill">
+               + Dodaj sobu
+            </a>
+            <a th:href="@{/hotel}" class="btn btn-outline-primary rounded-pill">
+                ← Nazad na hotele
+            </a>
+        </div>
     </div>
 
     <!-- ROOMS -->
@@ -115,9 +121,13 @@
 
                 <div class="mt-3">
                     <a th:if="${room.available}"
-                       th:href="@{/rezervisi/{id}(id=${room.id})}"
+                       th:href="@{'/reservation/addOrEdit?roomId='+ ${room.id}}"
                        class="btn btn-primary btn-sm">
                         Rezerviši
+                    </a>
+                    <a th:href="@{'/room/addOrEditRoom?hotelId=' + ${hotelId} + '&roomId=' + ${room.id}}"
+                       class="btn btn-outline-primary btn-sm">
+                        ✏️
                     </a>
                 </div>
             </div>

@@ -62,7 +62,7 @@
 
     <div class="page-header">
         <h2>🏨 Lista hotela</h2>
-        <a th:href="@{/hoteli/add}" class="btn btn-primary rounded-pill px-4">
+        <a th:href="@{/hotel/addOrEditHotel}" class="btn btn-primary rounded-pill px-4">
             + Dodaj hotel
         </a>
     </div>
@@ -86,9 +86,9 @@
 
                 <div class="card-footer bg-transparent border-0">
                     <div class="btn-group w-100">
-                        <a th:href="@{'/hotel/editHotel?hotelId=' + ${hotel.id}}"
+                        <a th:href="@{'/hotel/addOrEditHotel?hotelId=' + ${hotel.id}}"
                            class="btn btn-outline-primary btn-sm">✏️</a>
-                        <a th:href="@{'/hoteli/delete/' + ${hotel.id}}"
+                        <a th:href="@{'/hotel/remove?hotelId=' + ${hotel.id}}"
                            class="btn btn-outline-danger btn-sm"
                            onclick="return confirm('Obrisati hotel?')">🗑️</a>
                         <a th:href="@{'hotel/rooms?hotelId=' + ${hotel.id}}"

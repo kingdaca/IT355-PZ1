@@ -32,16 +32,24 @@ public class HotelController {
     @GetMapping("/rooms")
     public String getSobe(@RequestParam long hotelId, Model model){
         model.addAttribute("hotelId", hotelId);
-        rooms = initData.getRooms(hotelId);
+        rooms = initData.getRoomsByHotelId(hotelId);
         model.addAttribute("rooms", rooms);
         return "room/rooms";
     }
 
-    @GetMapping("/editHotel")
-    public String editHotel(@RequestParam long hotelId, Model model){
-        Hotel hotel = initData.getHotelById(hotelId);
+    @GetMapping("/addOrEditHotel")
+    public String addOrEditHotel(@RequestParam(required = false) Long hotelId, Model model) {
+
+        Hotel hotel;
+
+        if (hotelId != null) {
+            hotel = initData.getHotelById(hotelId);
+        } else {
+            hotel = new Hotel();
+        }
+
         model.addAttribute("hotel", hotel);
-        return "hotel/editHotel";
+        return "hotel/addOrEditHotel";
     }
 
     @PostMapping("/update")
@@ -57,6 +65,19 @@ public class HotelController {
         hotel1.setDescription(hotel.getDescription());
         return "redirect:/hotel";
     }
+
+    @PostMapping("/add")
+    public String addHotel(Hotel hotel){
+        initData.addHotel(hotel);
+        return "redirect:/hotel";
+    }
+
+    @GetMapping("/remove")
+    public String removeHotel(@RequestParam Long hotelId){
+        initData.removeHotel(hotelId);
+        return "redirect:/hotel";
+    }
+
 
 }
 

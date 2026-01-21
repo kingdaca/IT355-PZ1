@@ -70,7 +70,9 @@
         <div class="col-md-6">
             <div class="edit-card">
 
-                <form th:action="@{/hotel/update}" th:object="${hotel}" method="post">
+                <form th:action="${hotel.id} != null ? @{/hotel/update} : @{/hotel/add}"
+                      th:object="${hotel}"
+                      method="post">
 
                     <input type="hidden" th:field="*{id}"/>
 
@@ -99,10 +101,6 @@
                         <input type="email" class="form-control" th:field="*{email}">
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">🌐 Web sajt</label>
-                        <input type="url" class="form-control" th:field="*{website}">
-                    </div>
 
                     <div class="mb-3">
                         <label class="form-label">⭐ Broj zvezdica</label>
@@ -125,7 +123,8 @@
                             Otkaži
                         </a>
                         <button type="submit" class="btn btn-primary">
-                            💾 Sačuvaj izmene
+                            <span th:if="${hotel.id == null}">💾 Dodaj</span>
+                            <span th:if="${hotel.id != null}">💾 Sačuvaj izmene</span>
                         </button>
                     </div>
 

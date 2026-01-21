@@ -9,18 +9,18 @@ public class Room {
     private RoomType type;
     private double pricePerNight;
     private boolean available = true;
-    private Hotel hotel;
+    private Long hotelId;
 
     public Room() {
     }
 
-    public Room(Long id, String roomNumber, RoomType type, double pricePerNight, boolean available, Hotel hotel) {
+    public Room(Long id, String roomNumber, RoomType type, double pricePerNight, boolean available, Long hotelId) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.type = type;
         this.pricePerNight = pricePerNight;
         this.available = available;
-        this.hotel = hotel;
+        this.hotelId = hotelId;
     }
 
     public Long getId() {
@@ -63,12 +63,12 @@ public class Room {
         this.available = available;
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public Long getHotelId() {
+        return hotelId;
     }
 
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Room {
                 ", type=" + type +
                 ", pricePerNight=" + pricePerNight +
                 ", available=" + available +
-                ", hotel=" + hotel +
+                ", hotelId=" + hotelId +
                 '}';
     }
 }
