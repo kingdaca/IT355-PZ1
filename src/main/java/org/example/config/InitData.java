@@ -11,10 +11,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @Scope(value = WebApplicationContext.SCOPE_APPLICATION, proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -74,6 +71,15 @@ public class InitData {
         hotels.put(hotelIdCounter,hotel);
     }
 
+    public Hotel getHotelById(long hotelId) {
+        for (Hotel hotel : getHotels()) {
+            if (hotel.getId() == hotelId) {
+                return hotel;
+            }
+        }
+        return null;
+    }
+
     public void removeHotel(long hoteId){
         hotels.remove(hoteId);
     }
@@ -109,6 +115,13 @@ public class InitData {
         return new ArrayList<>(reservations.values());
     }
 
+    public void addReservation(Reservation r){
+        r.setId(reservationIdCounter++);
+        Guest g = r.getGuest();
+        g.setId(userIdCounter++);
+        reservations.put(reservationIdCounter,r);
+    }
+
     public Reservation getReservationById(Long id) {
         for (Reservation r : getReservation()){
             if(r.getId() == id){
@@ -118,13 +131,9 @@ public class InitData {
         return null;
     }
 
-    public Hotel getHotelById(long hotelId) {
-        for (Hotel hotel : getHotels()) {
-            if (hotel.getId() == hotelId) {
-                return hotel;
-            }
-        }
-        return null;
+
+    public Guest getGuestById(Long id){
+        return new ArrayList<Guest>((Collection<? extends Guest>) guests.values().stream().filter(guest -> guest.getId() == id)).get(0);
     }
 
 

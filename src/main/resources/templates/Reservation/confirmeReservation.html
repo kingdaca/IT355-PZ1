@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Potvrda rezervacije</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            min-height: 100vh;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .confirm-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .title { font-weight: 700; margin-bottom: 1.5rem; }
+
+        .info-row { margin-bottom: 0.75rem; }
+
+        .label { font-weight: 600; color: #555; }
+
+        .btn { border-radius: 20px !important; padding: 8px 20px; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="confirm-card">
+
+                <h2 class="title text-center">✅ Potvrda rezervacije</h2>
+
+                <div class="info-row">
+                    <span class="label">Broj rezervacije:</span>
+                    <span th:text="${reservation.reservationNumber}"></span>
+                </div>
+
+                <hr>
+
+                <h5>📅 Boravak</h5>
+                <div class="info-row">
+                    <span class="label">Check-in:</span>
+                    <span th:text="${reservation.checkInDate}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Check-out:</span>
+                    <span th:text="${reservation.checkOutDate}"></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Broj dana:</span>
+                    <span th:text="${numberOfDays}"></span>
+                </div>
+
+                <hr>
+
+                <h5>💰 Cena</h5>
+                <div class="info-row">
+                    <span class="label">Cena noćenja:</span>
+                    <span th:text="${pricePerNight}"></span> €
+                </div>
+                <div class="info-row">
+                    <span class="label">Cena usluge:</span>
+                    <span th:text="${reservation.service.price}"></span> €
+                </div>
+                <div class="info-row">
+                    <span class="label">Ukupna cena:</span>
+                    <strong th:text="${totalPrice}"></strong> €
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a th:href="@{/hotel}"
+                       class="btn btn-outline-secondary">
+                        ← Otkazi
+                    </a>
+
+                    <form th:action="@{/reservation/add}" th:object="${reservation}" method="post">
+                        <input type="hidden" th:field="*{id}" />
+                        <input type="hidden" th:field="*{reservationNumber}" />
+                        <input type="hidden" th:field="*{numberOFGuests}" />
+                        <input type="hidden" th:field="*{totalPrice}" />
+
+                        <input type="hidden" th:field="*{checkInDate}" />
+                        <input type="hidden" th:field="*{checkOutDate}" />
+                        <input type="hidden" th:field="*{reservationDate}" />
+                        <input type="hidden" name="hotelId" th:value="${reservation.hotel.id}" />
+
+                        <input type="hidden" name="roomId"  th:value="${reservation.room.id}" />
+
+
+                        <input type="hidden" name="guestFirstName" th:value="${reservation.guest.firstName}" />
+                        <input type="hidden" name="guestLastName" th:value="${reservation.guest.lastName}" />
+                        <input type="hidden" name="guestEmail" th:value="${reservation.guest.email}" />
+                        <input type="hidden" name="guestPhone" th:value="${reservation.guest.phone}" />
+                        <input type="hidden" name="guestPassportNumber" th:value="${reservation.guest.passportNumber}" />
+
+
+                        <input type="hidden" th:field="*{service.id}" />
+                        <input type="hidden" th:field="*{service.type}" />
+                        <button type="submit" class="btn btn-success">
+                            ✔ Potvrdi rezervaciju
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

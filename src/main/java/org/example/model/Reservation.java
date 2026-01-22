@@ -6,12 +6,10 @@ public class Reservation {
 
     private Long id;
     private String reservationNumber;
-
     private Hotel hotel;
     private Guest guest;
     private Room room;
-
-    private int NumberOFGuestsl;
+    private int NumberOFGuests;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private LocalDate reservationDate;
@@ -21,13 +19,13 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(Long id, String reservationNumber, Hotel hotel, Guest guest, Room room, int numberOFGuestsl, LocalDate checkInDate, LocalDate checkOutDate, LocalDate reservationDate, double totalPrice, Service service) {
+    public Reservation(Long id, String reservationNumber, Hotel hotel, Guest guest, Room room, int numberOFGuests, LocalDate checkInDate, LocalDate checkOutDate, LocalDate reservationDate, double totalPrice, Service service) {
         this.id = id;
         this.reservationNumber = reservationNumber;
         this.hotel = hotel;
         this.guest = guest;
         this.room = room;
-        NumberOFGuestsl = numberOFGuestsl;
+        NumberOFGuests = numberOFGuests;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.reservationDate = reservationDate;
@@ -115,12 +113,12 @@ public class Reservation {
         this.service = service;
     }
 
-    public int getNumberOFGuestsl() {
-        return NumberOFGuestsl;
+    public int getNumberOFGuests() {
+        return NumberOFGuests;
     }
 
-    public void setNumberOFGuestsl(int numberOFGuestsl) {
-        NumberOFGuestsl = numberOFGuestsl;
+    public void setNumberOFGuests(int numberOFGuests) {
+        NumberOFGuests = numberOFGuests;
     }
 
     @Override
@@ -131,7 +129,7 @@ public class Reservation {
                 ", hotel=" + hotel +
                 ", guest=" + guest +
                 ", room=" + room +
-                ", NumberOFGuestsl=" + NumberOFGuestsl +
+                ", NumberOFGuests=" + NumberOFGuests +
                 ", checkInDate=" + checkInDate +
                 ", checkOutDate=" + checkOutDate +
                 ", reservationDate=" + reservationDate +

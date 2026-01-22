@@ -31,8 +31,8 @@ public class HotelController {
 
     @GetMapping("/rooms")
     public String getSobe(@RequestParam long hotelId, Model model){
-        model.addAttribute("hotelId", hotelId);
         rooms = initData.getRoomsByHotelId(hotelId);
+        model.addAttribute("hotelId", hotelId);
         model.addAttribute("rooms", rooms);
         return "room/rooms";
     }

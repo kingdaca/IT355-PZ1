@@ -9,7 +9,7 @@
     <style>
 
         body {
-            background: dodgerblue;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -62,9 +62,14 @@
 
     <div class="page-header">
         <h2>🏨 Lista hotela</h2>
-        <a th:href="@{/hotel/addOrEditHotel}" class="btn btn-primary rounded-pill px-4">
-            + Dodaj hotel
-        </a>
+        <div>
+            <a th:href="@{/hotel/addOrEditHotel}" class="btn btn-primary rounded-pill px-4">
+                + Dodaj hotel
+            </a>
+            <a th:href="@{/}" class="btn btn-outline-primary rounded-pill">
+                ← Nazad
+            </a>
+        </div>
     </div>
 
     <div class="row">
@@ -79,9 +84,6 @@
                     <p class="mb-1"><strong>📍</strong> <span th:text="${hotel.address}"></span></p>
                     <p class="mb-1"><strong>📞</strong> <span th:text="${hotel.phone}"></span></p>
                     <p class="mb-1"><strong>📧</strong> <span th:text="${hotel.email}"></span></p>
-<!--                    <p class="mb-0"><strong>🏨 Sobe:</strong>-->
-<!--                        <span th:text="${hotel.sobe.size()}"></span>-->
-<!--                    </p>-->
                 </div>
 
                 <div class="card-footer bg-transparent border-0">

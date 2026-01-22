@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezervacija</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(135deg, #f5f7fa, #c3cfe2); min-height: 100vh; font-family: "Segoe UI", sans-serif; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .page-header h2 { font-weight: 700; }
+        .edit-card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.08); animation: fadeIn 0.4s ease forwards; }
+        .form-control { border-radius: 12px; }
+        .btn { border-radius: 20px !important; padding: 8px 20px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+<div class="container py-5">
+    <div class="page-header">
+        <h2>✏️ Rezervacija</h2>
+        <a th:href="@{'/hotel/rooms?hotelId='+ ${hotel.id}}" class="btn btn-outline-primary rounded-pill">← Nazad na rezervacije</a>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="edit-card">
+                <form th:action="${reservation.id} != null ? @{/reservation/update} : @{/reservation/confirm}" th:object="${reservation}" method="post">
+                    <input type="hidden" th:field="*{id}" />
+                    <div class="mb-3">
+                        <label class="form-label">Broj rezervacije</label>
+                        <input type="text" readonly class="form-control" th:field="*{reservationNumber}" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Hotel</label>
+                        <input type="text" class="form-control" readonly
+                               th:value="${hotel.name}" />
+                        <input type="hidden" name="hotelId" th:value="${hotel.id}" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ime</label>
+                        <input type="text" class="form-control" th:field="*{guest.firstName}" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Prezime</label>
+                        <input type="text" class="form-control" th:field="*{guest.lastName}" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" th:field="*{guest.email}" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Telefon</label>
+                        <input type="text" class="form-control" th:field="*{guest.phone}" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Broj pasoša</label>
+                        <input type="text" class="form-control" th:field="*{guest.passportNumber}" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Soba</label>
+                        <input type="text" class="form-control" readonly
+                               th:value="'Soba ' + ${room.roomNumber} + ' (' + ${room.type.displayName} + ')'" />
+                        <input type="hidden" name="roomId" th:value="${room.id}" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Check-in datum</label>
+                        <input type="date" class="form-control" th:field="*{checkInDate}" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Check-out datum</label>
+                        <input type="date" class="form-control" th:field="*{checkOutDate}" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Datum rezervacije</label>
+                        <input type="date" class="form-control" th:field="*{reservationDate}" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Broj gostiju</label>
+                        <input type="number" class="form-control" th:field="*{numberOFGuests}" required/>
+                    </div>
+                    <h5 class="mt-4">Usluga</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Tip usluge</label>
+                        <select class="form-control" th:field="*{service.type}" required>
+                            <option th:each="st : ${T(org.example.model.enums.ServiceType).values()}" th:value="${st}" th:text="${st.displayName}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Opis usluge</label>
+                        <input type="text" class="form-control" th:field="*{service.description}"/>
+                    </div>
+                    <div class="d-flex justify-content-between mt-4">
+                        <a th:href="@{/reservation}" class="btn btn-outline-secondary">Otkaži</a>
+                        <button type="submit" class="btn btn-primary">
+                            <span th:if="${reservation.id == null}">💾 Dodaj</span>
+                            <span th:if="${reservation.id != null}">💾 Sačuvaj izmene</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

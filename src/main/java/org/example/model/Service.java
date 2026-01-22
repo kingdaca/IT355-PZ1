@@ -10,22 +10,13 @@ public class Service {
     private double price;
 
     public Service() {
+
     }
 
     public Service(Long id, ServiceType type, String description, double price) {
         this.id = id;
         this.type = type;
         this.description = description;
-        if(type == ServiceType.ALL_INCLUSIVE){
-            this.price = 200;
-        } else if (type == ServiceType.FULL_BOARD) {
-            this.price = 100;
-        } else if (type == ServiceType.HALF_BOARD) {
-            this.price = 50;
-        } else {
-            this.price = 0;
-        }
-
     }
 
     public Long getId() {
@@ -53,6 +44,15 @@ public class Service {
     }
 
     public double getPrice() {
+        if(this.type == ServiceType.ALL_INCLUSIVE){
+            this.price = 200;
+        } else if (this.type == ServiceType.FULL_BOARD) {
+            this.price = 100;
+        } else if (this.type == ServiceType.HALF_BOARD) {
+            this.price = 50;
+        } else {
+            this.price = 0;
+        }
         return price;
     }
 
