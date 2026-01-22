@@ -1,14 +1,12 @@
 package org.example.controller;
 
-import org.example.config.InitData;
+import org.example.config.DataSeeder;
 import org.example.model.*;
-import org.example.model.enums.ServiceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
@@ -18,7 +16,7 @@ import java.util.Random;
 public class ReservationController {
 
     @Autowired
-    private InitData initData;
+    private DataSeeder dataSeeder;
 
 
     @GetMapping("/creatReservation")
@@ -26,7 +24,7 @@ public class ReservationController {
                                        @RequestParam(required = false) Long roomId,
                                        Model model) {
         Reservation reservation = (reservationId != null)
-                ? initData.getReservationById(reservationId)
+                ? dataSeeder.getReservationById(reservationId)
                 : new Reservation();
 
         if (reservation.getGuest() == null) {
@@ -42,28 +40,28 @@ public class ReservationController {
             reservation.setReservationNumber(String.valueOf(randomNumber));
         }
 
-        Room room = initData.getRoomById(roomId);
+        Room room = dataSeeder.getRoomById(roomId);
 
         model.addAttribute("reservation", reservation);
-        model.addAttribute("hotel", initData.getHotelById(room.getHotelId()));
+        model.addAttribute("hotel", dataSeeder.getHotelById(room.getHotelId()));
         model.addAttribute("room", room);
-        model.addAttribute("guests", initData.getGuests());
+        model.addAttribute("guests", dataSeeder.getGuests());
 
         return "reservation/createReservation";
     }
 
     @GetMapping("/reservationList")
     public String reservationList(Model model){
-        List<Reservation> reservations = initData.getReservation();
+        List<Reservation> reservations = dataSeeder.getReservation();
         model.addAttribute("reservations", reservations);
         return "reservation/reservationList";
     }
 
     @GetMapping("/edit")
     public String editReservation(@RequestParam("reservationId") Long id, Model model){
-        Reservation reservation = initData.getReservationById(id);
-        model.addAttribute("hotels", initData.getHotelById(reservation.getHotel().getId()));
-        model.addAttribute("rooms", initData.getRoomsByHotelId(reservation.getHotel().getId()).stream().filter(room -> room.isAvailable()));
+        Reservation reservation = dataSeeder.getReservationById(id);
+        model.addAttribute("hotels", dataSeeder.getHotelById(reservation.getHotel().getId()));
+        model.addAttribute("rooms", dataSeeder.getRoomsByHotelId(reservation.getHotel().getId()).stream().filter(room -> room.isAvailable()));
         model.addAttribute("reservation", reservation);
         return "reservation/editReservation";
     }
@@ -74,8 +72,8 @@ public class ReservationController {
                                     @RequestParam("roomId") Long roomId,
                                      Model model) {
 
-        reservation.setHotel(initData.getHotelById(hotelId));
-        reservation.setRoom(initData.getRoomById(roomId));
+        reservation.setHotel(dataSeeder.getHotelById(hotelId));
+        reservation.setRoom(dataSeeder.getRoomById(roomId));
         long numberOfDays = ChronoUnit.DAYS.between(
                 reservation.getCheckInDate(),
                 reservation.getCheckOutDate()
@@ -99,8 +97,8 @@ public class ReservationController {
                                  @RequestParam("guestEmail") String guestEmail,
                                  @RequestParam("guestPhone") String guestPhone,
                                  @RequestParam("guestPassportNumber") String guestPassportNumber) {
-        reservation.setHotel(initData.getHotelById(hotelId));
-        reservation.setRoom(initData.getRoomById(roomId));
+        reservation.setHotel(dataSeeder.getHotelById(hotelId));
+        reservation.setRoom(dataSeeder.getRoomById(roomId));
         Guest guest = new Guest();
 
         guest.setFirstName(guestFirstName);
@@ -110,7 +108,7 @@ public class ReservationController {
         guest.setPassportNumber(guestPassportNumber);
 
         reservation.setGuest(guest);
-        initData.addReservation(reservation);
+        dataSeeder.addReservation(reservation);
         return "redirect:/hotel";
     }
 
@@ -123,8 +121,8 @@ public class ReservationController {
                                  @RequestParam("guestEmail") String guestEmail,
                                  @RequestParam("guestPhone") String guestPhone,
                                  @RequestParam("guestPassportNumber") String guestPassportNumber) {
-        Reservation reservation1 = initData.getReservationById(reservation.getId());
-        reservation1.setRoom(initData.getRoomById(roomId));
+        Reservation reservation1 = dataSeeder.getReservationById(reservation.getId());
+        reservation1.setRoom(dataSeeder.getRoomById(roomId));
         Guest guest = new Guest();
         double totalPrica = reservation1.getRoom().getPricePerNight() + (reservation1.getService().getPrice() * reservation1.getNumberOFGuests());
         reservation1.setTotalPrice(totalPrica);
@@ -146,7 +144,7 @@ public class ReservationController {
 
     @GetMapping("remove")
     public String removeReservation(@RequestParam("reservationId") Long id){
-        initData.removeReservation(id);
+        dataSeeder.removeReservation(id);
         return "redirect:/reservation/reservationList";
     }
 

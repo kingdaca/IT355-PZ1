@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.config.InitData;
+import org.example.config.DataSeeder;
 import org.example.model.Hotel;
 import org.example.model.Room;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 public class HotelController {
 
     @Autowired
-    private InitData initData;
+    private DataSeeder dataSeeder;
 
     private List<Hotel> hotels = new ArrayList<>();
 
@@ -24,14 +24,14 @@ public class HotelController {
 
     @GetMapping
     public String hotels(Model model) {
-        hotels = initData.getHotels();
+        hotels = dataSeeder.getHotels();
         model.addAttribute("hotels", hotels);
         return "hotel/hotel"; // 👈 folder/fajl
     }
 
     @GetMapping("/rooms")
     public String getSobe(@RequestParam long hotelId, Model model){
-        rooms = initData.getRoomsByHotelId(hotelId);
+        rooms = dataSeeder.getRoomsByHotelId(hotelId);
         model.addAttribute("hotelId", hotelId);
         model.addAttribute("rooms", rooms);
         return "room/rooms";
@@ -43,7 +43,7 @@ public class HotelController {
         Hotel hotel;
 
         if (hotelId != null) {
-            hotel = initData.getHotelById(hotelId);
+            hotel = dataSeeder.getHotelById(hotelId);
         } else {
             hotel = new Hotel();
         }
@@ -54,7 +54,7 @@ public class HotelController {
 
     @PostMapping("/update")
     public String updateHotel(Hotel hotel){
-        Hotel hotel1 = initData.getHotelById((hotel.getId()));
+        Hotel hotel1 = dataSeeder.getHotelById((hotel.getId()));
         hotel1.setName(hotel.getName());
         hotel1.setAddress(hotel.getAddress());
         hotel1.setCity(hotel.getCity());
@@ -68,13 +68,13 @@ public class HotelController {
 
     @PostMapping("/add")
     public String addHotel(Hotel hotel){
-        initData.addHotel(hotel);
+        dataSeeder.addHotel(hotel);
         return "redirect:/hotel";
     }
 
     @GetMapping("/remove")
     public String removeHotel(@RequestParam Long hotelId){
-        initData.removeHotel(hotelId);
+        dataSeeder.removeHotel(hotelId);
         return "redirect:/hotel";
     }
 

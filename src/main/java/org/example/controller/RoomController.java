@@ -1,7 +1,6 @@
 package org.example.controller;
 
-import org.example.config.InitData;
-import org.example.model.Hotel;
+import org.example.config.DataSeeder;
 import org.example.model.Room;
 import org.example.model.enums.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RoomController {
 
     @Autowired
-    InitData initData;
+    DataSeeder dataSeeder;
 
     @GetMapping("/addOrEditRoom")
     public String addOrEditRoom(@RequestParam(required = false) Long roomId , @RequestParam(required = false)Long hotelId, Model model) {
@@ -25,12 +24,12 @@ public class RoomController {
         Room room;
 
         if (roomId != null) {
-            room = initData.getRoomById(roomId);
+            room = dataSeeder.getRoomById(roomId);
         } else {
             room = new Room();
         }
         model.addAttribute("roomTypes", RoomType.values());
-        model.addAttribute("hotels",initData.getHotelById(hotelId));
+        model.addAttribute("hotels", dataSeeder.getHotelById(hotelId));
         model.addAttribute("hotelId", hotelId);
         model.addAttribute("room", room);
         return "room/addOrEditRoom";
@@ -38,20 +37,20 @@ public class RoomController {
 
     @PostMapping("/add")
     public String addRoom(Room room){
-        initData.addRoom(room);
+        dataSeeder.addRoom(room);
         return "redirect:/hotel/rooms?hotelId="+room.getHotelId();
     }
 
     @GetMapping("/remove")
     public String removeRoom(@RequestParam("roomId") Long roomId,
                             @RequestParam("hotelId") Long hotelId){
-        initData.removeRoom(roomId);
+        dataSeeder.removeRoom(roomId);
         return "redirect:/hotel/rooms?hotelId="+hotelId;
     }
 
     @PostMapping("/update")
     public String updateRoom(Room room){
-        Room room1 = initData.getRoomById(room.getId());
+        Room room1 = dataSeeder.getRoomById(room.getId());
         room1.setRoomNumber(room.getRoomNumber());
         room1.setType(room.getType());
         room1.setPricePerNight(room.getPricePerNight());

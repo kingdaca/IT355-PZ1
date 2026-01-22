@@ -1,7 +1,6 @@
 package org.example.config;
 
 import jakarta.annotation.PostConstruct;
-import jdk.jshell.Snippet;
 import org.example.model.*;
 import org.example.model.enums.RoomType;
 import org.example.model.enums.ServiceType;
@@ -15,7 +14,7 @@ import java.util.*;
 
 @Component
 @Scope(value = WebApplicationContext.SCOPE_APPLICATION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class InitData {
+public class DataSeeder {
     private Map<Long, Hotel> hotels = new HashMap<>();
     private Map<Long, Room> rooms = new HashMap<>();
 
