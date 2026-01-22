@@ -21,7 +21,7 @@ public class ReservationController {
     private InitData initData;
 
 
-    @GetMapping("/addOrEdit")
+    @GetMapping("/creatReservation")
     public String addOrEditReservation(@RequestParam(required = false) Long reservationId,
                                        @RequestParam(required = false) Long roomId,
                                        Model model) {
@@ -49,15 +49,23 @@ public class ReservationController {
         model.addAttribute("room", room);
         model.addAttribute("guests", initData.getGuests());
 
-        return "reservation/addOrEditReservation";
+        return "reservation/createReservation";
     }
 
-    @GetMapping("/list")
-    public String reservation(Model model){
+    @GetMapping("/reservationList")
+    public String reservationList(Model model){
         List<Reservation> reservations = initData.getReservation();
-        System.out.println(reservations);
         model.addAttribute("reservations", reservations);
         return "reservation/reservationList";
+    }
+
+    @GetMapping("/edit")
+    public String editReservation(@RequestParam("reservationId") Long id, Model model){
+        Reservation reservation = initData.getReservationById(id);
+        model.addAttribute("hotels", initData.getHotelById(reservation.getHotel().getId()));
+        model.addAttribute("rooms", initData.getRoomsByHotelId(reservation.getHotel().getId()).stream().filter(room -> room.isAvailable()));
+        model.addAttribute("reservation", reservation);
+        return "reservation/editReservation";
     }
 
     @PostMapping("/confirm")
@@ -104,6 +112,42 @@ public class ReservationController {
         reservation.setGuest(guest);
         initData.addReservation(reservation);
         return "redirect:/hotel";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute Reservation reservation,
+                                 @RequestParam("hotelId") Long hotelId,
+                                 @RequestParam("roomId") Long roomId,
+                                 @RequestParam("guestFirstName") String guestFirstName,
+                                 @RequestParam("guestLastName") String guestLastName,
+                                 @RequestParam("guestEmail") String guestEmail,
+                                 @RequestParam("guestPhone") String guestPhone,
+                                 @RequestParam("guestPassportNumber") String guestPassportNumber) {
+        Reservation reservation1 = initData.getReservationById(reservation.getId());
+        reservation1.setRoom(initData.getRoomById(roomId));
+        Guest guest = new Guest();
+        double totalPrica = reservation1.getRoom().getPricePerNight() + (reservation1.getService().getPrice() * reservation1.getNumberOFGuests());
+        reservation1.setTotalPrice(totalPrica);
+        guest.setFirstName(guestFirstName);
+        guest.setLastName(guestLastName);
+        guest.setEmail(guestEmail);
+        guest.setPhone(guestPhone);
+        guest.setPassportNumber(guestPassportNumber);
+
+        reservation1.setGuest(guest);
+        reservation1.setNumberOFGuests(reservation.getNumberOFGuests());
+        reservation1.setCheckInDate(reservation.getCheckInDate());
+        reservation1.setCheckOutDate(reservation.getCheckOutDate());
+        reservation1.setReservationDate(reservation.getReservationDate());
+        reservation1.setService(reservation.getService());
+
+        return "redirect:/reservation/reservationList";
+    }
+
+    @GetMapping("remove")
+    public String removeReservation(@RequestParam("reservationId") Long id){
+        initData.removeReservation(id);
+        return "redirect:/reservation/reservationList";
     }
 
 

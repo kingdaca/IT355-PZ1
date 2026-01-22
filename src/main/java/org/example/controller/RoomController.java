@@ -42,6 +42,13 @@ public class RoomController {
         return "redirect:/hotel/rooms?hotelId="+room.getHotelId();
     }
 
+    @GetMapping("/remove")
+    public String removeRoom(@RequestParam("roomId") Long roomId,
+                            @RequestParam("hotelId") Long hotelId){
+        initData.removeRoom(roomId);
+        return "redirect:/hotel/rooms?hotelId="+hotelId;
+    }
+
     @PostMapping("/update")
     public String updateRoom(Room room){
         Room room1 = initData.getRoomById(room.getId());

@@ -23,7 +23,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="edit-card">
-                <form th:action="${reservation.id} != null ? @{/reservation/update} : @{/reservation/confirm}" th:object="${reservation}" method="post">
+                <form th:action="@{/reservation/confirm}" th:object="${reservation}" method="post">
                     <input type="hidden" th:field="*{id}" />
                     <div class="mb-3">
                         <label class="form-label">Broj rezervacije</label>
@@ -91,8 +91,7 @@
                     <div class="d-flex justify-content-between mt-4">
                         <a th:href="@{/reservation}" class="btn btn-outline-secondary">Otkaži</a>
                         <button type="submit" class="btn btn-primary">
-                            <span th:if="${reservation.id == null}">💾 Dodaj</span>
-                            <span th:if="${reservation.id != null}">💾 Sačuvaj izmene</span>
+                            <span>💾 Dodaj</span>
                         </button>
                     </div>
                 </form>

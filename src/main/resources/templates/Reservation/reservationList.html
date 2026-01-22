@@ -58,9 +58,6 @@
     <div class="page-header">
         <h2>📋 Lista rezervacija</h2>
         <div>
-            <a th:href="@{/reservation/addOrEditReservation}" class="btn btn-primary rounded-pill px-4">
-                + Dodaj rezervaciju
-            </a>
             <a th:href="@{/}" class="btn btn-outline-primary rounded-pill">
                 ← Nazad
             </a>
@@ -79,18 +76,18 @@
                     <p class="mb-1"><strong>👥 Broj gostiju:</strong> <span th:text="${reservation.numberOFGuests}"></span></p>
                     <p class="mb-1"><strong>📅 Check-in:</strong> <span th:text="${reservation.checkInDate}"></span></p>
                     <p class="mb-1"><strong>📅 Check-out:</strong> <span th:text="${reservation.checkOutDate}"></span></p>
-                    <p class="mb-1"><strong>💰 Ukupno:</strong> <span th:text="${reservation.totalPrice} + '€'"></span></p>
 
                     <div th:if="${reservation.service != null}">
                         <p class="mb-1"><strong>🍽️ Usluga:</strong> <span th:text="${reservation.service.type.displayName}"></span></p>
                         <p class="mb-1"><strong>📄 Opis:</strong> <span th:text="${reservation.service.description}"></span></p>
-                        <p class="mb-1"><strong>💵 Cijena usluge:</strong> <span th:text="${reservation.service.price} + '€'"></span></p>
+                        <p class="mb-1"><strong>💵 Cena dodatne usluge:</strong> <span th:text="${reservation.service.price} + '€'"></span></p>
                     </div>
+                    <p class="mb-1"><strong>💰 Ukupno:</strong> <span th:text="${reservation.totalPrice} + '€'"></span></p>
                 </div>
 
                 <div class="card-footer bg-transparent border-0">
                     <div class="btn-group w-100">
-                        <a th:href="@{'/reservation/addOrEditReservation?reservationId=' + ${reservation.id}}"
+                        <a th:href="@{'/reservation/edit?reservationId=' + ${reservation.id}}"
                            class="btn btn-outline-primary btn-sm">✏️</a>
                         <a th:href="@{'/reservation/remove?reservationId=' + ${reservation.id}}"
                            class="btn btn-outline-danger btn-sm"

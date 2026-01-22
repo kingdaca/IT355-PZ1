@@ -4,7 +4,6 @@ import org.example.model.enums.ServiceType;
 
 public class Service {
 
-    private Long id;
     private ServiceType type;
     private String description;
     private double price;
@@ -13,19 +12,11 @@ public class Service {
 
     }
 
-    public Service(Long id, ServiceType type, String description, double price) {
-        this.id = id;
+    public Service( ServiceType type, String description, double price) {
         this.type = type;
         this.description = description;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public ServiceType getType() {
         return type;
@@ -33,6 +24,17 @@ public class Service {
 
     public void setType(ServiceType type) {
         this.type = type;
+
+        if (type == null) {
+            this.price = 0;
+        } else {
+            switch (type) {
+                case ALL_INCLUSIVE -> this.price = 200;
+                case FULL_BOARD -> this.price = 100;
+                case HALF_BOARD -> this.price = 50;
+                default -> this.price = 0;
+            }
+        }
     }
 
     public String getDescription() {
@@ -44,15 +46,6 @@ public class Service {
     }
 
     public double getPrice() {
-        if(this.type == ServiceType.ALL_INCLUSIVE){
-            this.price = 200;
-        } else if (this.type == ServiceType.FULL_BOARD) {
-            this.price = 100;
-        } else if (this.type == ServiceType.HALF_BOARD) {
-            this.price = 50;
-        } else {
-            this.price = 0;
-        }
         return price;
     }
 
@@ -63,7 +56,6 @@ public class Service {
     @Override
     public String toString() {
         return "Service{" +
-                "id=" + id +
                 ", type=" + type +
                 ", description='" + description + '\'' +
                 ", price=" + price +
